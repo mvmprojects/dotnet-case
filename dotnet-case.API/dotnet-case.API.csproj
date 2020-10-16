@@ -5,5 +5,9 @@
     <RootNamespace>dotnet_case.API</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 
 </Project>
