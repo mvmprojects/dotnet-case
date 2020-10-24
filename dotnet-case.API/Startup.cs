@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dotnet_case.DATA;
+using dotnet_case.DATA.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,7 +27,28 @@ namespace dotnet_case.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            // old template code is just this line
+            //services.AddControllers();
+
+            services.AddControllers(config =>
+            {
+                config.ReturnHttpNotAcceptable = true;
+            }).AddXmlDataContractSerializerFormatters(); // Offer xml to clients asking for xml.
+            // The reason the example uses this formatter type, XmlDataContractSerializer, instead
+            // of just XmlSerializer, is so it can be used with types like DateTimeOffset. Most 
+            // types in .NET and Core were not designed with the XmlSerializer in mind.
+
+            // TODO use automapper for the controllers
+            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddScoped<CaseRepository, CaseRepository>();
+
+            services.AddDbContext<CaseContext>();
+            //    (options =>
+            //{
+            //    options.UseSqlServer(
+            //        @"Server=(localdb)\mssqllocaldb;Database=dotnet-caseDATA;Trusted_Connection=True;");
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
