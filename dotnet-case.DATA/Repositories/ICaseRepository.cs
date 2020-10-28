@@ -5,7 +5,7 @@ using dotnet_case.BL.Models;
 
 namespace dotnet_case.DATA.Repositories
 {
-    interface ICaseRepository
+    public interface ICaseRepository
     {
         //void AddArtist(ArtistModel artist);
         void DeleteArtist(ArtistModel artist);

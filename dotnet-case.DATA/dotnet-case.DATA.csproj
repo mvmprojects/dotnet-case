@@ -7,7 +7,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.9">
+    <!-- The next line caused an issue when using Add-Migration initial in PMC: -->
+    <!-- "Your startup project 'dotnet-case.API' doesn't reference Microsoft.EntityFrameworkCore.Design."-->
+    <!-- But the whole point of .DATA is separation of concerns, and it's the only .Design user.--> 
+    <!-- So we use a workaround and just comment out this line: -->
       <!--<PrivateAssets>all</PrivateAssets>-->
+    <!--"PrivateAssets attribute specifies which assets belonging to the package specified 
+    by <PackageReference> should be consumed but not flow to the next project. The Analyzers, Build 
+    and ContentFiles assets are private by default when this attribute is not present."-->
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />

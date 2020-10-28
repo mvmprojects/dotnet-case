@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -41,13 +42,20 @@ namespace dotnet_case.API
             // TODO use automapper for the controllers
             //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddScoped<CaseRepository, CaseRepository>();
+            // repositories
+            services.AddScoped<ICaseRepository, CaseRepository>();
 
-            services.AddDbContext<CaseContext>();
-            //    (options =>
+            services.AddDbContext<CaseContext>
+            //(options => { options.UseSqlServer(
+            // @"Server=(localdb)\mssqllocaldb;Database=dotnet-caseDATA;Trusted_Connection=True;"); });
+
+            // Connection string moved to appsettings.json
+            (options => options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
+
+            // JSON options to avoid reference loops
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(options =>
             //{
-            //    options.UseSqlServer(
-            //        @"Server=(localdb)\mssqllocaldb;Database=dotnet-caseDATA;Trusted_Connection=True;");
+            //    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             //});
         }
 

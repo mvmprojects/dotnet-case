@@ -19,28 +19,40 @@ namespace dotnet_case.API
 
         public static void Main(string[] args)
         {
-            // old template code
+            // old template code is just this line
             //CreateHostBuilder(args).Build().Run();
 
             // build, but don't start yet
             var host = CreateHostBuilder(args).Build();
 
-            // using statement for database
-            //using (var scope = host.Services.CreateScope())
-            //{
-            //    try
-            //    {
-            //        var context = scope.ServiceProvider.GetService<CaseContext>();
-            //        // for demo purposes, delete the database & migrate on startup
-            //        //context.Database.EnsureDeleted();
-            //        //context.Database.Migrate();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-            //        logger.LogError(ex, "An error occurred while migrating the database.");
-            //    }
-            //}
+            using (var scope = host.Services.CreateScope())
+            {
+                //try
+                //{
+                //    var context = scope.ServiceProvider.GetService<CaseContext>();
+                //    // for demo purposes, delete the database & migrate on startup
+                //    //context.Database.EnsureDeleted();
+                //    //context.Database.Migrate();
+                //}
+                //catch (Exception ex)
+                //{
+                //    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+                //    logger.LogError(ex, "An error occurred while migrating the database.");
+                //}
+
+                var services = scope.ServiceProvider;
+
+                try
+                {
+                    var context = services.GetRequiredService<CaseContext>();
+                    DataLoader.Initialize(context);
+                }
+                catch (Exception)
+                {
+
+                    Console.WriteLine("An error occurred while seeding the database.");
+                }
+            }
 
             // actually run the web app now
             host.Run();
