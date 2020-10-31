@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using dotnet_case.DATA;
 using dotnet_case.DATA.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -39,8 +40,8 @@ namespace dotnet_case.API
             // of just XmlSerializer, is so it can be used with types like DateTimeOffset. Most 
             // types in .NET and Core were not designed with the XmlSerializer in mind.
 
-            // TODO use automapper for the controllers
-            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            // automapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             // repositories
             services.AddScoped<ICaseRepository, CaseRepository>();

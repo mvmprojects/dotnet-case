@@ -1,4 +1,5 @@
-﻿using dotnet_case.BL.Models;
+﻿using AutoMapper;
+using dotnet_case.BL.Models;
 using dotnet_case.DATA;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,14 +14,14 @@ namespace dotnet_case.API.Controllers
     [ApiController]
     public class ArtistsController : ControllerBase
     {
-        // TODO replace with ICaseRepository field
+        // TODO replace context field with ICaseRepository field
         private readonly CaseContext _context;
-        // TODO add automapper
+        private readonly IMapper _mapper;
 
-        public ArtistsController(CaseContext context)
+        public ArtistsController(CaseContext context, IMapper mapper)
         {
-            _context = context ?? throw new ArgumentNullException();
-            // TODO add mapper parameter
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         // GET: api/Artists 

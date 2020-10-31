@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using dotnet_case.DATA;
 using dotnet_case.BL.Models;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace dotnet_case.API
 {
@@ -27,20 +28,20 @@ namespace dotnet_case.API
 
             using (var scope = host.Services.CreateScope())
             {
-                //try
-                //{
-                //    var context = scope.ServiceProvider.GetService<CaseContext>();
-                //    // for demo purposes, delete the database & migrate on startup
-                //    //context.Database.EnsureDeleted();
-                //    //context.Database.Migrate();
-                //}
-                //catch (Exception ex)
-                //{
-                //    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-                //    logger.LogError(ex, "An error occurred while migrating the database.");
-                //}
-
                 var services = scope.ServiceProvider;
+
+                try
+                {
+                    var context = services.GetService<CaseContext>();
+                    // for demo purposes, delete the database & migrate on startup
+                    context.Database.EnsureDeleted();
+                    context.Database.Migrate();
+                }
+                catch (Exception ex)
+                {
+                    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred while migrating the database.");
+                }
 
                 try
                 {
