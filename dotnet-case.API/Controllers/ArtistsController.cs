@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using dotnet_case.API.Dtos;
 using dotnet_case.BL.Models;
 using dotnet_case.DATA;
 using Microsoft.AspNetCore.Mvc;
@@ -26,8 +27,10 @@ namespace dotnet_case.API.Controllers
 
         // GET: api/Artists 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ArtistModel>>> GetArtists() {
-            return await _context.Artists.ToListAsync();
+        public async Task<ActionResult<IEnumerable<ArtistDto>>> GetArtists() {
+            
+            var data = await _context.Artists.ToListAsync();
+            return _mapper.Map<List<ArtistDto>>(data);
         }
     }
 }

@@ -40,7 +40,11 @@ namespace dotnet_case.API
             // of just XmlSerializer, is so it can be used with types like DateTimeOffset. Most 
             // types in .NET and Core were not designed with the XmlSerializer in mind.
 
-            // automapper
+            // AutoMapper documentation talks about "MapperConfiguration" a lot but all that is 
+            // skipped in Kevin Dockx's example. "AddAutoMapper" appears to be specifically in use 
+            // for dependency injection, to be combined with IMapper in the controllers.
+            // AddAutoMapper wants to know where you placed your Profiles, so if you ever move
+            // the Profiles folder to another project then this line will fail.
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             // repositories
