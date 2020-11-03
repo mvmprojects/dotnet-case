@@ -25,7 +25,7 @@ namespace dotnet_case.API.Controllers
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        // test GET: api/Artists 
+        // test GET: api/artists 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ArtistDto>>> GetArtists() {
             
@@ -38,8 +38,8 @@ namespace dotnet_case.API.Controllers
             // var data = await _context.Artists.ProjectTo<ArtistDto>().ToListAsync();
         }
 
-        // TODO: GET for a wrapper object that adds total list size as int (in its constructor)
-        // forward slash in the route template is not required
+        // TODO: GET: api/artists/getlist 
+        // wrapper object that adds total list size as int (in its constructor)
         [HttpGet("getlist")]
         public IActionResult GetList()
         {
