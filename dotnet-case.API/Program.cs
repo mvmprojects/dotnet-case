@@ -26,7 +26,7 @@ namespace dotnet_case.API
             // build, but don't start yet
             var host = CreateHostBuilder(args).Build();
 
-            using (var scope = host.Services.CreateScope())
+            using (IServiceScope scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
 

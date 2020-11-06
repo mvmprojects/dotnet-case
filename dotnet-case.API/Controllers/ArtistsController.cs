@@ -2,6 +2,7 @@
 using dotnet_case.API.Dtos;
 using dotnet_case.BL.Models;
 using dotnet_case.DATA;
+using dotnet_case.DATA.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,52 +16,70 @@ namespace dotnet_case.API.Controllers
     [ApiController]
     public class ArtistsController : ControllerBase
     {
-        // TODO replace context field with ICaseRepository field
-        private readonly CaseContext _context;
+        private readonly ICaseRepository _repo;
         private readonly IMapper _mapper;
 
-        public ArtistsController(CaseContext context, IMapper mapper)
+        public ArtistsController(ICaseRepository repo, IMapper mapper)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        // test GET: api/artists 
+        // basic GET: api/artists 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ArtistDto>>> GetArtists() {
-            
-            var data = await _context.Artists.ToListAsync();
-            return _mapper.Map<List<ArtistDto>>(data);
+        public IActionResult GetArtists() 
+        {
+            List<ArtistModel> data = _repo.GetArtists();
+            return Ok(_mapper.Map<List<ArtistDto>>(data));
+        }
 
-            // todo test me - requires AutoMapper.QueryableExtensions
+        // GET: api/artists/getlist 
+        // Returns wrapper object that adds total list size as int (in its constructor).
+        [HttpGet("getlist")]
+        public async Task<IActionResult> GetListAsync()
+        {
+            Task<List<ArtistModel>> task = _repo.GetArtistsAsync();
+            // DONE: test to see if the mapper can actually tolerate a task instead of a list
+            // UPDATE: nope! don't put a Task straight into _mapper.Map()!
+            List<ArtistModel> awaitedList = await task;
+            List<ArtistDto> mappedList = _mapper.Map<List<ArtistDto>>(awaitedList);
+            ArtistRequestWrapper wrapper = new ArtistRequestWrapper(mappedList);
+
+            // TODO test me: requires AutoMapper.QueryableExtensions
             // requires the ORM to expose IQueryable
             // https://docs.automapper.org/en/stable/Queryable-Extensions.html
             // var data = await _context.Artists.ProjectTo<ArtistDto>().ToListAsync();
-        }
-
-        // TODO: GET: api/artists/getlist 
-        // wrapper object that adds total list size as int (in its constructor)
-        [HttpGet("getlist")]
-        public IActionResult GetList()
-        {
-            List<ArtistModel> artistList = _context.Artists.ToList();
-            List<ArtistDto> mappedList = _mapper.Map<List<ArtistDto>>(artistList);
-            ArtistRequestWrapper wrapper = new ArtistRequestWrapper(mappedList);
             return Ok(wrapper);
         }
 
+        // TODO
+        // GET: api/artists/byname/{name}
+        [HttpGet("byname/{name}")]
+        public IActionResult FindAuthorByName(string name)
+        {
+            ArtistModel foundArtist = _repo.FindByName(name);
+            return Ok(_mapper.Map<ArtistDto>(foundArtist));
+        }
+
+        [HttpOptions]
+        public IActionResult GetAuthorsOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS");
+            return Ok();
+        }
+
         [HttpPost]
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return StatusCode(501);
         }
 
-        public ActionResult Update()
+        public IActionResult Update()
         {
             return StatusCode(501);
         }
 
-        public ActionResult Delete()
+        public IActionResult Delete()
         {
             return StatusCode(501);
         }
