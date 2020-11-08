@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
 using dotnet_case.API.Dtos;
 using dotnet_case.BL.Models;
-using dotnet_case.DATA;
 using dotnet_case.DATA.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace dotnet_case.API.Controllers
@@ -57,7 +54,7 @@ namespace dotnet_case.API.Controllers
         [HttpGet("byname/{name}")]
         public IActionResult FindAuthorByName(string name)
         {
-            ArtistModel foundArtist = _repo.FindByName(name);
+            ArtistModel foundArtist = _repo.FindArtistByName(name);
             return Ok(_mapper.Map<ArtistDto>(foundArtist));
         }
 

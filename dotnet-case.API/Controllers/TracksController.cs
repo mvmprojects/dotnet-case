@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using dotnet_case.DATA.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace dotnet_case.API.Controllers
@@ -10,6 +11,15 @@ namespace dotnet_case.API.Controllers
     [ApiController]
     public class TracksController : ControllerBase
     {
+        private readonly ICaseRepository _repo;
+        private readonly IMapper _mapper;
+
+        public TracksController(ICaseRepository repo, IMapper mapper)
+        {
+            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+        }
+
         [HttpOptions]
         public IActionResult GetAuthorsOptions()
         {
