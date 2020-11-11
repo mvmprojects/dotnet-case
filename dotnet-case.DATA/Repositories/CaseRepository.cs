@@ -46,6 +46,10 @@ namespace dotnet_case.DATA.Repositories
 
         public List<ArtistModel> GetArtists()
         {
+            // OrderBy should probably be moved to a service in the BL layer.
+            // even better: OrderBy usage should be decided by the client and so
+            // should be passed as an optional query string in the GET request.
+            // example: api/artists?orderby=name
             return _context.Artists.OrderBy(c => c.Name).ToList();
         }
 
@@ -59,7 +63,7 @@ namespace dotnet_case.DATA.Repositories
         {
             // "no code in this implementation"
             // Kevin Dockx has a brief explanation for why this method is left empty in his
-            // demo project
+            // pluralsight tutorial
         }
 
         // Albums
@@ -78,17 +82,22 @@ namespace dotnet_case.DATA.Repositories
 
         public void AddTrack(TrackModel track)
         {
-
+            _context.Tracks.Add(track);
         }
 
         public void UpdateTrack(TrackModel track)
         {
-
+            _context.Tracks.Update(track);
         }
 
         public void DeleteTrack(TrackModel track)
         {
+            if (track == null)
+            {
+                throw new ArgumentNullException(nameof(track));
+            }
 
+            _context.Tracks.Remove(track);
         }
 
         public bool Save()

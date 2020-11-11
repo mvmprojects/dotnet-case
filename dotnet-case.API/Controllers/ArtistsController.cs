@@ -30,10 +30,11 @@ namespace dotnet_case.API.Controllers
             return Ok(_mapper.Map<List<ArtistDto>>(data));
         }
 
-        // GET: api/artists/getlist 
+        // GET: api/artists/listwithcount (formerly api/artists/getlist)
         // Returns wrapper object that adds total list size as int (in its constructor).
-        [HttpGet("getlist")]
-        public async Task<IActionResult> GetListAsync()
+        // Kevin Dockx recommends not to use verbs in your resource naming style.
+        [HttpGet("listwithcount")]
+        public async Task<IActionResult> GetListWithCountAsync()
         {
             Task<List<ArtistModel>> task = _repo.GetArtistsAsync();
             // DONE: test to see if the mapper can actually tolerate a task instead of a list
@@ -42,15 +43,17 @@ namespace dotnet_case.API.Controllers
             List<ArtistDto> mappedList = _mapper.Map<List<ArtistDto>>(awaitedList);
             ArtistRequestWrapper wrapper = new ArtistRequestWrapper(mappedList);
 
-            // TODO test me: requires AutoMapper.QueryableExtensions
+            // optional alternative requires AutoMapper.QueryableExtensions
             // requires the ORM to expose IQueryable
             // https://docs.automapper.org/en/stable/Queryable-Extensions.html
             // var data = await _context.Artists.ProjectTo<ArtistDto>().ToListAsync();
             return Ok(wrapper);
         }
 
-        // TODO
-        // GET: api/artists/byname/{name}
+        // TODO see about replacing this with api/artists?filterby=name
+        // Kevin Dockx recommends not to treat a content filter like a separate resource.
+        // "byname" clearly isn't a resource and so should be passed via query string.
+        // GET: api/artists/byname/{name} (should become api/artists?filterby=name)
         [HttpGet("byname/{name}")]
         public IActionResult FindAuthorByName(string name)
         {
