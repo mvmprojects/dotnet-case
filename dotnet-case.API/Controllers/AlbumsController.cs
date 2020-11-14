@@ -27,6 +27,15 @@ namespace dotnet_case.API.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        // consider changing controller route to force usage of parent Id in URI
+        // api/artists/{artistId}/albums
+        // even though this means we'll need to change the front-end project
+        public IActionResult GetAlbumsForArtist(long artistId)
+        {
+            return Ok();
+        }
+
         [HttpPost]
         public IActionResult Create()
         {

@@ -38,7 +38,7 @@ namespace dotnet_case.API.Controllers
         {
             Task<List<ArtistModel>> task = _repo.GetArtistsAsync();
             // DONE: test to see if the mapper can actually tolerate a task instead of a list
-            // UPDATE: nope! don't put a Task straight into _mapper.Map()!
+            // UPDATE: not at all! don't put a Task straight into _mapper.Map()!
             List<ArtistModel> awaitedList = await task;
             List<ArtistDto> mappedList = _mapper.Map<List<ArtistDto>>(awaitedList);
             ArtistRequestWrapper wrapper = new ArtistRequestWrapper(mappedList);
@@ -69,19 +69,10 @@ namespace dotnet_case.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create()
-        {
-            return StatusCode(501);
-        }
+        public IActionResult Create() => StatusCode(501);
 
-        public IActionResult Update()
-        {
-            return StatusCode(501);
-        }
+        public IActionResult Update() => StatusCode(501);
 
-        public IActionResult Delete()
-        {
-            return StatusCode(501);
-        }
+        public IActionResult Delete() => StatusCode(501);
     }
 }

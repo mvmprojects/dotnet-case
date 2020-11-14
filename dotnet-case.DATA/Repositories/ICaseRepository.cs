@@ -24,10 +24,11 @@ namespace dotnet_case.DATA.Repositories
 
         // Tracks
 
-        void AddTrack(TrackModel track);
+        void CreateTrack(TrackModel track);
         List<TrackModel> FindTracksByAlbumId(long albumId);
         void DeleteTrack(TrackModel track);
         void UpdateTrack(TrackModel track);
+
         bool Save();
     }
 }

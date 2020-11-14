@@ -53,7 +53,7 @@ namespace dotnet_case.DATA.Repositories
             return _context.Artists.OrderBy(c => c.Name).ToList();
         }
 
-        // Test me some more
+        // interesting to see if all controllers can be made async in the future
         public async Task<List<ArtistModel>> GetArtistsAsync()
         {
             return await _context.Artists.OrderBy(c => c.Name).ToListAsync();
@@ -80,7 +80,8 @@ namespace dotnet_case.DATA.Repositories
             return _context.Tracks.Where(t => t.AlbumId == albumId).ToList();
         }
 
-        public void AddTrack(TrackModel track)
+        // method is also void in tutorial
+        public void CreateTrack(TrackModel track)
         {
             _context.Tracks.Add(track);
         }
