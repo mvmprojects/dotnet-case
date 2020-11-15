@@ -53,7 +53,13 @@ namespace dotnet_case.API.Controllers
         // TODO see about replacing this with api/artists?filterby=name
         // Kevin Dockx recommends not to treat a content filter like a separate resource.
         // "byname" clearly isn't a resource and so should be passed via query string.
-        // GET: api/artists/byname/{name} (should become api/artists?filterby=name)
+        // proper way of doing it involves a ResourceParams class that groups queries
+        // so you don't have to do (string searchQuery, string extraQuery, (...)) etc.
+        // checks will be needed in the repo method (or BL service method) like:
+        // if (!string.IsNullOrWhiteSpace(artistsResourceParams.SearchQuery)) {...}
+
+        // GET: api/artists/byname/{name} (should become api/artists?searchQuery=aName)
+        // should get [FromQuery] ArtistsResourceParams resourceParams as only parameter
         [HttpGet("byname/{name}")]
         public IActionResult FindAuthorByName(string name)
         {
@@ -71,8 +77,10 @@ namespace dotnet_case.API.Controllers
         [HttpPost]
         public IActionResult Create() => StatusCode(501);
 
-        public IActionResult Update() => StatusCode(501);
+        [HttpPut]
+        public ActionResult Update() => StatusCode(501);
 
-        public IActionResult Delete() => StatusCode(501);
+        [HttpDelete]
+        public ActionResult Delete() => StatusCode(501);
     }
 }

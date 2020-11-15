@@ -42,12 +42,14 @@ namespace dotnet_case.API.Controllers
             return StatusCode(501);
         }
 
-        public IActionResult Update()
+        [HttpPut]
+        public ActionResult Update()
         {
             return StatusCode(501);
         }
 
-        public IActionResult Delete()
+        [HttpDelete]
+        public ActionResult Delete()
         {
             return StatusCode(501);
         }

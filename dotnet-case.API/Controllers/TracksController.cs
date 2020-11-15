@@ -53,7 +53,7 @@ namespace dotnet_case.API.Controllers
 
         [HttpPost]
         // consider creating a slimmed down TrackForCreationDto object
-        // consider changing this method to CreateTrackForAlbum, requiring albumId
+        // consider changing this method to CreateTrackForAlbum, requiring an albumId
         public IActionResult Create(TrackDto trackDto)
         {
             // note: param null check is unnecessary in modern ASP.NET 
@@ -80,13 +80,20 @@ namespace dotnet_case.API.Controllers
             //// finally, add (Name = "GetTrack") in [HttpGet]
         }
 
-        public IActionResult Update()
+        // patch might be a better option for tracks
+        [HttpPut]
+        public ActionResult Update()
         {
+            // possible outcome:
+            //return NoContent(); // 204
             return StatusCode(501);
         }
 
-        public IActionResult Delete()
+        [HttpDelete]
+        public ActionResult Delete()
         {
+            // possible outcome:
+            //return NoContent(); // 204
             return StatusCode(501);
         }
     }

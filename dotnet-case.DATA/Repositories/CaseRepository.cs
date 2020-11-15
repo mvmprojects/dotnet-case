@@ -62,8 +62,23 @@ namespace dotnet_case.DATA.Repositories
         public void UpdateArtist(ArtistModel artist)
         {
             // "no code in this implementation"
-            // Kevin Dockx has a brief explanation for why this method is left empty in his
-            // pluralsight tutorial
+            // Kevin Dockx has an explanation for why this repo method is left empty in
+            // his pluralsight tutorial, even though we still call it from a controller.
+            // It has to do with enforcing the repository pattern:
+
+            // "We're working on a contract, not on an implementation. Always have a set of
+            // methods matching the required functionality and call them, even if they don't
+            // do anything in the current implementation. (...) Always have this update 
+            // method on your repository contract if an update is allowed. (...)
+
+            // In EF Core, these entities are tracked by the context. By executing a
+            // _mapper.Map statement (in the controller), the entity has changed to a 
+            // modified state and executing Save() will write these changes to our database.
+            // So all we have to do is call into the Save() method (on the repo). (...)
+            
+            // If changes happen to the underlying datastore, or to the repository, this is
+            // the type of code (referring to the _repo.UpdateThing statement in the
+            // controller) that will ensure it will keep on working as expected."
         }
 
         // Albums
