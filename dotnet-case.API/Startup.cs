@@ -52,10 +52,14 @@ namespace dotnet_case.API
             // Connection string moved to appsettings.json
             (options => options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
 
-            // JSON options to avoid reference loops
-            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(options =>
+            // JSON options to help ignore reference loops?
+
+            // seems you have to install a nuget package for the old JSON serializer used in older Core versions:
+            // Microsoft.AspNetCore.Mvc.NewtonsoftJson
+            // then do something like this:
+            //services.AddControllers().AddNewtonsoftJson(o =>
             //{
-            //    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            //    o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             //});
         }
 

@@ -12,6 +12,7 @@ namespace dotnet_case.BL.Models
         public long TrackId { get; set; }
         [Required]
         public string Name { get; set; }
+        // note: milliseconds
         public int Duration { get; set; }
         // reference navigation property
         public AlbumModel Album { get; set; }

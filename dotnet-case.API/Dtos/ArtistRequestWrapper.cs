@@ -7,13 +7,13 @@ namespace dotnet_case.API.Dtos
 {
     public class ArtistRequestWrapper
     {
-        public List<ArtistDto> results { get; set; }
-        public int total { get; set; }
+        public List<ArtistDto> Results { get; set; }
+        public int Total { get; set; }
 
         public ArtistRequestWrapper(List<ArtistDto> artistDtos)
         {
-            this.results = artistDtos;
-            this.total = artistDtos.Count();
+            this.Results = artistDtos;
+            this.Total = artistDtos.Count();
         }
     }
 }

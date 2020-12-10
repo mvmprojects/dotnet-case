@@ -12,12 +12,24 @@ namespace dotnet_case.API.Profiles
         public TracksProfile()
         {
             CreateMap<TrackModel, Dtos.TrackDto>()
+                //.ForMember(
+                //    destinationMember => destinationMember.AlbumName,
+                //    memberOption => memberOption.MapFrom(src => src.Album.Name))
+                //.ForMember(
+                //    destinationMember => destinationMember.ArtistName,
+                //    memberOption => memberOption.MapFrom(src => src.Album.Artist.Name))
                 .ForMember(
-                    destinationMember => destinationMember.AlbumName,
-                    memberOption => memberOption.MapFrom(src => src.Album.Name))
+                    destinationMember => destinationMember.Minutes,
+                    memberOptions => memberOptions.MapFrom(src => src.Duration / 60000))
                 .ForMember(
-                    destinationMember => destinationMember.ArtistName,
-                    memberOption => memberOption.MapFrom(src => src.Album.Artist.Name));
+                    destinationMember => destinationMember.Seconds,
+                    memberOptions => memberOptions.MapFrom(src => (src.Duration % 60000) / 1000));
+
+            CreateMap<Dtos.TrackDto, TrackModel>()
+                .ForMember(
+                destinationMember => destinationMember.Duration,
+                memberOptions => memberOptions.MapFrom(
+                    src => (src.Minutes * 60000) + (src.Seconds * 1000)));
 
             // TODO TrackCreationDto back to TrackModel
         }
