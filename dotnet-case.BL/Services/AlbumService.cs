@@ -4,7 +4,7 @@ using System.Text;
 
 namespace dotnet_case.BL.Services
 {
-    class AlbumsService
+    class AlbumService
     {
         // TODO update controller to use service layer instead of repository layer
     }
