@@ -61,14 +61,14 @@ namespace dotnet_case.API.Controllers
         // GET: api/artists/byname/{name} (should become api/artists?searchQuery=aName)
         // should get [FromQuery] ArtistsResourceParams resourceParams as only parameter
         [HttpGet("byname/{name}")]
-        public IActionResult FindAuthorByName(string name)
+        public IActionResult FindArtistByName(string name)
         {
             ArtistModel foundArtist = _repo.FindArtistByName(name);
             return Ok(_mapper.Map<ArtistDto>(foundArtist));
         }
 
         [HttpOptions]
-        public IActionResult GetAuthorsOptions()
+        public IActionResult GetArtistsOptions()
         {
             Response.Headers.Add("Allow", "GET,OPTIONS");
             return Ok();
