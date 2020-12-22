@@ -12,23 +12,26 @@ using dotnet_case.API.Profiles;
 
 namespace dotnet_case.TEST
 {
-    public class ArtistControllerTests
+    public class ArtistsControllerTests
     {
-        //private Mock<IMapper> _mapper;
         private Mock<ICaseRepository> _repo;
         private ArtistsController _sut;
 
-        [SetUp]
-        public void Setup()
+        [OneTimeSetUp]
+        public void OneTimeSetup()
         {
-            //_mapper = new Mock<IMapper>();
-            // Or, create a REAL mapper. Might as well test the real Artists profile.
             var profile = new ArtistsProfile();
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile(profile));
             var realMapper = new Mapper(configuration);
 
             _repo = new Mock<ICaseRepository>();
             _sut = new ArtistsController(_repo.Object, realMapper);
+        }
+
+        [SetUp]
+        public void Setup()
+        {
+
         }
 
         [Test]
