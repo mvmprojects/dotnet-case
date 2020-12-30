@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using dotnet_case.API.Dtos;
-using dotnet_case.BL.Models;
+using dotnet_case.DOMAIN.Models;
 using dotnet_case.DATA.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;

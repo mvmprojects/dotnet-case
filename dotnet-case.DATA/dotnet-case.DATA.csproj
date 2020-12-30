@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\dotnet-case.BL\dotnet-case.BL.csproj" />
+    <ProjectReference Include="..\dotnet-case.DOMAIN\dotnet-case.DOMAIN.csproj" />
   </ItemGroup>
 
 </Project>

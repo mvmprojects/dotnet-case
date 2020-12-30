@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using dotnet_case.BL.Models;
+using dotnet_case.DOMAIN.Models;
 
 namespace dotnet_case.API.Profiles
 {

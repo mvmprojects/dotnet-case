@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using dotnet_case.BL.Models;
+using dotnet_case.DOMAIN.Models;
 
 namespace dotnet_case.DATA.Repositories
 {

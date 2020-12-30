@@ -5,7 +5,7 @@ using Moq;
 using dotnet_case.DATA.Repositories;
 using dotnet_case.API.Dtos;
 using AutoMapper;
-using dotnet_case.BL.Models;
+using dotnet_case.DOMAIN.Models;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using dotnet_case.API.Profiles;

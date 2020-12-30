@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace dotnet_case.BL.Models
+namespace dotnet_case.DOMAIN.Models
 {
     public class AlbumModel
     {

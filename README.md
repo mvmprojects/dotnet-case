@@ -8,4 +8,4 @@ EF Core and Automapper will be used.
 
 ## Projects within Solution
 
-Projects within the dotnet-case solution are API (default Web App template), BL and DATA for more separation (empty class library template) and finally TEST (NUnit template).
+Projects within the dotnet-case solution are API (default Web App template), BL, DOMAIN and DATA for more separation (empty class library templates) and finally TEST (NUnit template).

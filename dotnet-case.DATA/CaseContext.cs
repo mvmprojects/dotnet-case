@@ -1,4 +1,4 @@
-﻿using dotnet_case.BL.Models;
+﻿using dotnet_case.DOMAIN.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;

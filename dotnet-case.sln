@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotnet-case.DATA", "dotnet-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotnet-case.TEST", "dotnet-case.TEST\dotnet-case.TEST.csproj", "{0F4A9CDF-83E7-419A-949B-6D9BB5622D6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet-case.BL", "dotnet-case.BL\dotnet-case.BL.csproj", "{B702EC8D-8600-4034-AC81-406C5E041791}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotnet-case.BL", "dotnet-case.BL\dotnet-case.BL.csproj", "{B702EC8D-8600-4034-AC81-406C5E041791}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet-case.DOMAIN", "dotnet-case.DOMAIN\dotnet-case.DOMAIN.csproj", "{FCC3F141-0DF5-4AF9-AAEB-7E761A72B103}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{B702EC8D-8600-4034-AC81-406C5E041791}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B702EC8D-8600-4034-AC81-406C5E041791}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B702EC8D-8600-4034-AC81-406C5E041791}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCC3F141-0DF5-4AF9-AAEB-7E761A72B103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCC3F141-0DF5-4AF9-AAEB-7E761A72B103}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCC3F141-0DF5-4AF9-AAEB-7E761A72B103}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCC3F141-0DF5-4AF9-AAEB-7E761A72B103}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
