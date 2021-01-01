@@ -3,18 +3,30 @@ using dotnet_case.DATA.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace dotnet_case.BL.Services
 {
-    class ArtistService
+    public class ArtistService : IArtistService
     {
-        // TODO update controller to use service layer instead of repository layer
-        // note: this addition forced me to split up the solution into even more projects
+        // note: there currently isn't any business logic, so this BL layer doesn't do much.
+        // it just demonstrates the principle of separating business logic from controllers.
+
         private readonly ICaseRepository _repo;
 
         public ArtistService(ICaseRepository repo)
         {
             _repo = repo ?? throw new ArgumentNullException(nameof(repo));
+        }
+
+        public List<ArtistModel> GetArtists()
+        {
+            return _repo.GetArtists();
+        }
+
+        public Task<List<ArtistModel>> GetArtistsAsync()
+        {
+            return _repo.GetArtistsAsync();
         }
 
         public ArtistModel FindArtistByName(string artistName)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using dotnet_case.BL.Services;
 using dotnet_case.DATA;
 using dotnet_case.DATA.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -43,7 +44,8 @@ namespace dotnet_case.API
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             // repositories
-            services.AddScoped<ICaseRepository, CaseRepository>();
+            services.AddScoped<ICaseRepository, CaseRepository>(); // to be replaced
+            services.AddScoped<IArtistService, ArtistService>();
 
             services.AddDbContext<CaseContext>
             //(options => { options.UseSqlServer(

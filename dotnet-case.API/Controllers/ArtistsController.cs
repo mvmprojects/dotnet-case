@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using dotnet_case.API.Dtos;
+using dotnet_case.BL.Services;
 using dotnet_case.DOMAIN.Models;
 using dotnet_case.DATA.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -13,12 +14,13 @@ namespace dotnet_case.API.Controllers
     [ApiController]
     public class ArtistsController : ControllerBase
     {
-        private readonly ICaseRepository _repo;
+        //private readonly ICaseRepository _repo;
+        private readonly IArtistService _service;
         private readonly IMapper _mapper;
 
-        public ArtistsController(ICaseRepository repo, IMapper mapper)
+        public ArtistsController(IArtistService artistService, IMapper mapper)
         {
-            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
+            _service = artistService ?? throw new ArgumentNullException(nameof(artistService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
@@ -26,7 +28,7 @@ namespace dotnet_case.API.Controllers
         [HttpGet]
         public IActionResult GetArtists() 
         {
-            List<ArtistModel> data = _repo.GetArtists();
+            List<ArtistModel> data = _service.GetArtists();
             return Ok(_mapper.Map<List<ArtistDto>>(data));
         }
 
@@ -36,7 +38,7 @@ namespace dotnet_case.API.Controllers
         [HttpGet("listwithcount")]
         public async Task<IActionResult> GetListWithCountAsync()
         {
-            Task<List<ArtistModel>> task = _repo.GetArtistsAsync();
+            Task<List<ArtistModel>> task = _service.GetArtistsAsync();
             // DONE: test to see if the mapper can actually tolerate a task instead of a list
             // UPDATE: not at all! don't put a Task straight into _mapper.Map()!
             List<ArtistModel> awaitedList = await task;
@@ -63,7 +65,7 @@ namespace dotnet_case.API.Controllers
         [HttpGet("byname/{name}")]
         public IActionResult FindArtistByName(string name)
         {
-            ArtistModel foundArtist = _repo.FindArtistByName(name);
+            ArtistModel foundArtist = _service.FindArtistByName(name);
             return Ok(_mapper.Map<ArtistDto>(foundArtist));
         }
 

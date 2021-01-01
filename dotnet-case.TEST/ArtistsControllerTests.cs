@@ -9,12 +9,14 @@ using dotnet_case.DOMAIN.Models;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using dotnet_case.API.Profiles;
+using dotnet_case.BL.Services;
 
 namespace dotnet_case.TEST
 {
     public class ArtistsControllerTests
     {
-        private Mock<ICaseRepository> _repo;
+        //private Mock<ICaseRepository> _repo;
+        private Mock<IArtistService> _service;
         private ArtistsController _sut;
 
         [OneTimeSetUp]
@@ -24,8 +26,9 @@ namespace dotnet_case.TEST
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile(profile));
             var realMapper = new Mapper(configuration);
 
-            _repo = new Mock<ICaseRepository>();
-            _sut = new ArtistsController(_repo.Object, realMapper);
+            //_repo = new Mock<ICaseRepository>();
+            _service = new Mock<IArtistService>();
+            _sut = new ArtistsController(_service.Object, realMapper);
         }
 
         [SetUp]
@@ -42,7 +45,7 @@ namespace dotnet_case.TEST
             //_mapper.Setup(m => m.Map<List<ArtistDto>>(It.IsAny<List>()))
             //    .Returns(new List<ArtistDto>() { new ArtistDto { } });
 
-            _repo.Setup(r => r.GetArtistsAsync())
+            _service.Setup(r => r.GetArtistsAsync())
                 .Returns(() =>
                 {
                     return Task.FromResult(
@@ -63,7 +66,7 @@ namespace dotnet_case.TEST
         {
             // Arrange
             // have the mock return something when the controller calls it
-            _repo.Setup(x => x.FindArtistByName("MJ"))
+            _service.Setup(x => x.FindArtistByName("MJ"))
                 .Returns(new ArtistModel { Name = "MJ" });
 
             // Act
