@@ -47,6 +47,7 @@ namespace dotnet_case.API
             services.AddScoped<ICaseRepository, CaseRepository>(); // to be replaced
             services.AddScoped<IArtistService, ArtistService>();
             services.AddScoped<IAlbumService, AlbumService>();
+            services.AddScoped<ITrackService, TrackService>();
 
             services.AddDbContext<CaseContext>
             //(options => { options.UseSqlServer(

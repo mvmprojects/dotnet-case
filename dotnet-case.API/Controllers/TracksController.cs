@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using dotnet_case.BL.Services;
 
 namespace dotnet_case.API.Controllers
 {
@@ -18,12 +19,13 @@ namespace dotnet_case.API.Controllers
     [ApiController]
     public class TracksController : ControllerBase
     {
-        private readonly ICaseRepository _repo;
+        //private readonly ICaseRepository _repo;
+        private readonly ITrackService _service;
         private readonly IMapper _mapper;
 
-        public TracksController(ICaseRepository repo, IMapper mapper)
+        public TracksController(ITrackService service, IMapper mapper)
         {
-            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
@@ -46,7 +48,7 @@ namespace dotnet_case.API.Controllers
         [HttpGet("byalbumid/{albumId}", Name = "FindTracksByAlbumId")]
         public IActionResult FindTracksByAlbumId(long albumId)
         {
-            List<TrackModel> foundTracks = _repo.FindTracksByAlbumId(albumId);
+            List<TrackModel> foundTracks = _service.FindTracksByAlbumId(albumId);
             List<TrackDto> trackDtos = _mapper.Map<List<TrackDto>>(foundTracks);
             return Ok(trackDtos);
         }
@@ -61,8 +63,8 @@ namespace dotnet_case.API.Controllers
 
             TrackModel trackModel = _mapper.Map<TrackModel>(trackDto);
 
-            _repo.CreateTrack(trackModel);
-            _repo.Save();
+            _service.CreateTrack(trackModel);
+            _service.Save();
             var trackReturned = _mapper.Map<TrackDto>(trackModel);
             return CreatedAtRoute("FindTracksByAlbumId", trackReturned);
 
