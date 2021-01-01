@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using dotnet_case.API.Dtos;
+using dotnet_case.BL.Services;
 using dotnet_case.DATA.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,12 +13,13 @@ namespace dotnet_case.API.Controllers
     [ApiController]
     public class AlbumsController : ControllerBase
     {
-        private readonly ICaseRepository _repo;
+        //private readonly ICaseRepository _repo;
+        private readonly IAlbumService _service;
         private readonly IMapper _mapper;
 
-        public AlbumsController(ICaseRepository repo, IMapper mapper)
+        public AlbumsController(IAlbumService service, IMapper mapper)
         {
-            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
@@ -33,7 +36,9 @@ namespace dotnet_case.API.Controllers
         // even though this means we'll need to change the front-end project
         public IActionResult GetAlbumsForArtist(long artistId)
         {
-            return Ok();
+            List<DOMAIN.Models.AlbumModel> albums =_service.FindAlbumsByArtistId(artistId);
+            List<AlbumDto> mappedAlbums = _mapper.Map<List<AlbumDto>>(albums);
+            return Ok(mappedAlbums);
         }
 
         [HttpPost]
