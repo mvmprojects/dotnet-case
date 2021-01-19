@@ -35,6 +35,9 @@ namespace dotnet_case.API.Controllers
         // GET: api/artists/listwithcount (formerly api/artists/getlist)
         // Returns wrapper object that adds total list size as int (in its constructor).
         // Kevin Dockx recommends not to use verbs in your resource naming style.
+        // further note: even if you deviate from the usual style for an RPC style call, 
+        // then you should still add an ID in there somewhere.
+        // like api/authors/{authorId}/totalamountofpages
         [HttpGet("listwithcount")]
         public async Task<IActionResult> GetListWithCountAsync()
         {

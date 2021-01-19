@@ -9,6 +9,8 @@ namespace dotnet_case.BL.Services
     {
         public List<TrackModel> FindTracksByAlbumId(long albumId);
         public void CreateTrack(TrackModel track);
+        public void UpdateTrack(TrackModel track);
+        public void DeleteTrack(TrackModel track);
         public bool Save();
     }
 }

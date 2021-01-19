@@ -26,6 +26,16 @@ namespace dotnet_case.BL.Services
             _repo.CreateTrack(track);
         }
 
+        public void UpdateTrack(TrackModel track)
+        {
+            _repo.UpdateTrack(track);
+        }
+
+        public void DeleteTrack(TrackModel track)
+        {
+            _repo.DeleteTrack(track);
+        }
+
         public bool Save()
         {
             return _repo.Save();

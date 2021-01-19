@@ -30,21 +30,23 @@ namespace dotnet_case.API
         {
             services.AddControllers(config =>
             {
+                // if the following is 'false' (it is by default) then the api will return a default 
+                // format if an unsupported media type is requested by a client. Kevin Dockx argues 
+                // that it's better to turn down a request rather than lazily send json to a client 
+                // that doesn't even want json. so we set this to true, to send 406 Not Acceptable.
                 config.ReturnHttpNotAcceptable = true;
             }).AddXmlDataContractSerializerFormatters(); // Offer xml to clients asking for xml.
             // The reason the example uses this formatter type, XmlDataContractSerializer, instead
             // of just XmlSerializer, is so it can be used with types like DateTimeOffset. Most 
             // types in .NET and Core were not designed with the XmlSerializer in mind.
+            // note that json remains the default format, and xml is only added as an option.
 
-            // AutoMapper documentation talks about "MapperConfiguration" a lot but all that is 
-            // skipped in Kevin Dockx's example. "AddAutoMapper" appears to be specifically in use 
-            // for dependency injection, to be combined with IMapper in the controllers.
             // AddAutoMapper wants to know where you placed your Profiles, so if you ever move
             // the Profiles folder to another project then this line will fail.
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            // repositories
-            services.AddScoped<ICaseRepository, CaseRepository>(); // to be replaced
+            // repository and services
+            services.AddScoped<ICaseRepository, CaseRepository>();
             services.AddScoped<IArtistService, ArtistService>();
             services.AddScoped<IAlbumService, AlbumService>();
             services.AddScoped<ITrackService, TrackService>();
@@ -58,7 +60,8 @@ namespace dotnet_case.API
 
             // JSON options to help ignore reference loops?
 
-            // seems you have to install a nuget package for the old JSON serializer used in older Core versions:
+            // seems you have to install a nuget package for the old JSON serializer used in 
+            // older Core versions:
             // Microsoft.AspNetCore.Mvc.NewtonsoftJson
             // then do something like this:
             //services.AddControllers().AddNewtonsoftJson(o =>
