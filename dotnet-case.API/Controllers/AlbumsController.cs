@@ -34,7 +34,7 @@ namespace dotnet_case.API.Controllers
         // consider changing controller route to force usage of parent Id in URI
         // api/artists/{artistId}/albums
         // even though this means we'll need to change the front-end project
-        public IActionResult GetAlbumsForArtist(long artistId)
+        public ActionResult<IEnumerable<AlbumDto>> GetAlbumsForArtist(long artistId)
         {
             List<DOMAIN.Models.AlbumModel> albums =_service.FindAlbumsByArtistId(artistId);
             List<AlbumDto> mappedAlbums = _mapper.Map<List<AlbumDto>>(albums);

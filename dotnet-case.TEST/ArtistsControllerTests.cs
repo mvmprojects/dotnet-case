@@ -70,7 +70,7 @@ namespace dotnet_case.TEST
                 .Returns(new ArtistModel { Name = "MJ" });
 
             // Act
-            IActionResult actionResult = _sut.FindArtistByName("MJ");
+            ActionResult<ArtistDto> actionResult = _sut.FindArtistByName("MJ");
 
             // Assert
             //Assert.IsNotNull(contentResult);
