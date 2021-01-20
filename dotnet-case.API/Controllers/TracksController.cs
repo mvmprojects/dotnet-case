@@ -46,7 +46,7 @@ namespace dotnet_case.API.Controllers
 
         // route deviates from suggested resource naming guidelines
         [HttpGet("byalbumid/{albumId}", Name = "FindTracksByAlbumId")]
-        public IActionResult FindTracksByAlbumId(long albumId)
+        public ActionResult<IEnumerable<TrackDto>> FindTracksByAlbumId(long albumId)
         {
             List<TrackModel> foundTracks = _service.FindTracksByAlbumId(albumId);
             List<TrackDto> trackDtos = _mapper.Map<List<TrackDto>>(foundTracks);
@@ -56,7 +56,7 @@ namespace dotnet_case.API.Controllers
         [HttpPost]
         // consider creating a slimmed down TrackForCreationDto object
         // consider changing this method to CreateTrackForAlbum, requiring an albumId
-        public IActionResult Create(TrackDto trackDto)
+        public ActionResult<TrackDto> Create(TrackDto trackDto)
         {
             // note: param null check is unnecessary in modern ASP.NET 
             // as [ApiController] handles it, returning 400 Bad Request by itself

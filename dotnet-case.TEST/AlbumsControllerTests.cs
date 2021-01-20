@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using dotnet_case.API.Controllers;
 using dotnet_case.API.Profiles;
+using dotnet_case.BL.Services;
 using dotnet_case.DATA.Repositories;
 using Moq;
 using NUnit.Framework;
@@ -12,7 +13,7 @@ namespace dotnet_case.TEST
 {
     class AlbumsControllerTests
     {
-        private Mock<ICaseRepository> _repo;
+        private Mock<IAlbumService> _service;
         private AlbumsController _sut;
 
         [OneTimeSetUp]
@@ -22,8 +23,8 @@ namespace dotnet_case.TEST
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile(profile));
             var realMapper = new Mapper(configuration);
 
-            _repo = new Mock<ICaseRepository>();
-            _sut = new AlbumsController(_repo.Object, realMapper);
+            _service = new Mock<IAlbumService>();
+            _sut = new AlbumsController(_service.Object, realMapper);
         }
     }
 }

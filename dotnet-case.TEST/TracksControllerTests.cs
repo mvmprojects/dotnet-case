@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using dotnet_case.API.Controllers;
 using dotnet_case.API.Profiles;
+using dotnet_case.BL.Services;
 using dotnet_case.DATA.Repositories;
 using Moq;
 using NUnit.Framework;
@@ -12,7 +13,8 @@ namespace dotnet_case.TEST
 {
     class TracksControllerTests
     {
-        private Mock<ICaseRepository> _repo;
+        //private Mock<ICaseRepository> _repo;
+        private Mock<ITrackService> _service;
         private TracksController _sut;
 
         [OneTimeSetUp]
@@ -22,8 +24,8 @@ namespace dotnet_case.TEST
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile(profile));
             var realMapper = new Mapper(configuration);
 
-            _repo = new Mock<ICaseRepository>();
-            _sut = new TracksController(_repo.Object, realMapper);
+            _service = new Mock<ITrackService>();
+            _sut = new TracksController(_service.Object, realMapper);
         }
     }
 }

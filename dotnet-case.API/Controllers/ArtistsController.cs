@@ -26,7 +26,7 @@ namespace dotnet_case.API.Controllers
 
         // basic GET: api/artists 
         [HttpGet]
-        public IActionResult GetArtists() 
+        public ActionResult<IEnumerable<ArtistDto>> GetArtists() 
         {
             List<ArtistModel> data = _service.GetArtists();
             return Ok(_mapper.Map<List<ArtistDto>>(data));
@@ -39,7 +39,7 @@ namespace dotnet_case.API.Controllers
         // then you should still add an ID in there somewhere.
         // like api/authors/{authorId}/totalamountofpages
         [HttpGet("listwithcount")]
-        public async Task<IActionResult> GetListWithCountAsync()
+        public async Task<ActionResult<ArtistRequestWrapper>> GetListWithCountAsync()
         {
             Task<List<ArtistModel>> task = _service.GetArtistsAsync();
             // DONE: test to see if the mapper can actually tolerate a task instead of a list
@@ -66,21 +66,21 @@ namespace dotnet_case.API.Controllers
         // GET: api/artists/byname/{name} (should become api/artists?searchQuery=aName)
         // should get [FromQuery] ArtistsResourceParams resourceParams as only parameter
         [HttpGet("byname/{name}")]
-        public IActionResult FindArtistByName(string name)
+        public ActionResult<ArtistDto> FindArtistByName(string name)
         {
             ArtistModel foundArtist = _service.FindArtistByName(name);
             return Ok(_mapper.Map<ArtistDto>(foundArtist));
         }
 
         [HttpOptions]
-        public IActionResult GetArtistsOptions()
+        public ActionResult GetArtistsOptions()
         {
             Response.Headers.Add("Allow", "GET,OPTIONS");
             return Ok();
         }
 
         [HttpPost]
-        public IActionResult Create() => StatusCode(501);
+        public ActionResult Create() => StatusCode(501);
 
         [HttpPut]
         public ActionResult Update() => StatusCode(501);
