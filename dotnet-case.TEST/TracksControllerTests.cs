@@ -16,29 +16,65 @@ namespace dotnet_case.TEST
 {
     class TracksControllerTests
     {
-        private Mock<ITrackService> _service;
+        private Mock<ITrackService> mockService;
         private TracksController _sut;
 
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            var profile = new AlbumsProfile();
+            var profile = new TracksProfile();
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile(profile));
             var realMapper = new Mapper(configuration);
 
-            _service = new Mock<ITrackService>();
-            _sut = new TracksController(_service.Object, realMapper);
+            mockService = new Mock<ITrackService>();
+            _sut = new TracksController(mockService.Object, realMapper);
         }
 
         [Test]
         public void FindTracksByAlbumId_ShouldReturnContent()
         {
-            _service.Setup(x => x.FindTracksByAlbumId(1))
+            mockService.Setup(x => x.FindTracksByAlbumId(1))
                 .Returns(new List<TrackModel> { });
 
             ActionResult<IEnumerable<TrackDto>> action = _sut.FindTracksByAlbumId(1);
 
             Assert.That(action, Is.Not.Null);
+        }
+
+        [Test]
+        public void Create_ShouldCallService()
+        {
+            mockService.Setup(x => x.CreateTrack(new TrackModel() { }));
+
+            _sut.Create(new TrackDto() { });
+
+            //Mock.Get(mockService).Verify(x => 
+            //    x.CreateTrack(It.IsAny<TrackModel>()), Times.Once);
+
+            mockService.Verify(x =>
+                x.CreateTrack(It.IsAny<TrackModel>()), Times.Once);
+        }
+
+        [Test]
+        public void Delete_ShouldCallService()
+        {
+            mockService.Setup(x => x.DeleteTrack(new TrackModel() { }));
+
+            _sut.Delete(new TrackDto() { });
+
+            mockService.Verify(x =>
+                x.DeleteTrack(It.IsAny<TrackModel>()), Times.Once);
+        }
+
+        [Test]
+        public void Update_ShouldCallService()
+        {
+            mockService.Setup(x => x.UpdateTrack(new TrackModel() { }));
+
+            _sut.Update(new TrackDto() { });
+
+            mockService.Verify(x =>
+                x.UpdateTrack(It.IsAny<TrackModel>()), Times.Once);
         }
     }
 }

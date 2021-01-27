@@ -84,19 +84,25 @@ namespace dotnet_case.API.Controllers
 
         // patch might be a better option for tracks
         [HttpPut]
-        public ActionResult Update()
+        public ActionResult<TrackDto> Update(TrackDto trackDto)
         {
-            // possible outcome:
-            //return NoContent(); // 204
-            return StatusCode(501);
+            TrackModel trackModel = _mapper.Map<TrackModel>(trackDto);
+
+            _service.UpdateTrack(trackModel);
+            _service.Save();
+
+            return NoContent(); // 204
         }
 
         [HttpDelete]
-        public ActionResult Delete()
+        public ActionResult<TrackDto> Delete(TrackDto trackDto)
         {
-            // possible outcome:
-            //return NoContent(); // 204
-            return StatusCode(501);
+            TrackModel trackModel = _mapper.Map<TrackModel>(trackDto);
+
+            _service.DeleteTrack(trackModel);
+            _service.Save();
+
+            return NoContent(); // 204
         }
     }
 }
