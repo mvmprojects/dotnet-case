@@ -52,11 +52,12 @@ namespace dotnet_case.API
             services.AddScoped<ITrackService, TrackService>();
 
             services.AddDbContext<CaseContext>
-            //(options => { options.UseSqlServer(
-            // @"Server=(localdb)\mssqllocaldb;Database=dotnet-caseDATA;Trusted_Connection=True;"); });
-
-            // Connection string moved to appsettings.json
-            (options => options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
+            // Connection string moved to appsettings.json 
+            // Added rule to show real parameters in commands in logging.
+            // For security reasons, do not use .EnableSensitiveDataLogging in a real application.
+            (options => options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection"))
+                .EnableSensitiveDataLogging()
+                );
 
             // JSON options to help ignore reference loops?
 
