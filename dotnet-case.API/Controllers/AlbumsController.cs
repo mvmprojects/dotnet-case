@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace dotnet_case.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/artists/{artistId}/albums")]
     [ApiController]
     public class AlbumsController : ControllerBase
     {
@@ -31,9 +31,6 @@ namespace dotnet_case.API.Controllers
         }
 
         [HttpGet]
-        // consider changing controller route to force usage of parent Id in URI
-        // api/artists/{artistId}/albums
-        // even though this means we'll need to change the front-end project
         public ActionResult<IEnumerable<AlbumDto>> GetAlbumsForArtist(long artistId)
         {
             List<DOMAIN.Models.AlbumModel> albums =_service.FindAlbumsByArtistId(artistId);

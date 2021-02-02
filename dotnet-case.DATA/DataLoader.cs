@@ -44,7 +44,7 @@ namespace dotnet_case.DATA
                     {
                         new TrackModel { Name = "Track A", Album = album, Duration = 300000 },
                         new TrackModel { Name = "Track B", Album = album, Duration = 360000 },
-                        new TrackModel { Name = "Track C", Album = album, Duration = 240000 }
+                        new TrackModel { Name = "Track C", Album = album, Duration = 270000 }
                     };
                     tracks.AddRange(trackModels);
                 }
