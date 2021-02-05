@@ -37,7 +37,6 @@ namespace dotnet_case.API.Controllers
             return Ok();
         }
 
-        //[HttpGet("byalbumid/{albumId}", Name = "FindTracksByAlbumId")] // bad route name
         [HttpGet(Name = "FindTracksByAlbumId")]
         public ActionResult<IEnumerable<TrackDto>> FindTracksByAlbumId(long albumId)
         {
@@ -96,15 +95,19 @@ namespace dotnet_case.API.Controllers
             return NoContent(); // 204
         }
 
-        [HttpDelete]
-        public ActionResult<TrackDto> Delete(TrackDto trackDto)
+        [HttpDelete("/{trackId}")]
+        public ActionResult<TrackDto> Delete(long trackId) //(TrackDto trackDto)
         {
-            TrackModel trackModel = _mapper.Map<TrackModel>(trackDto);
+            //TrackModel trackModel = _mapper.Map<TrackModel>(trackDto);
+            var trackModel = _service.GetTrack(trackId);
 
-            _service.DeleteTrack(trackModel);
-            _service.Save();
+            if (trackModel != null)
+            {
+                _service.DeleteTrack(trackModel);
+                _service.Save();
 
-            return NoContent(); // 204
+                return NoContent(); // 204
+            } else return NotFound();
         }
     }
 }

@@ -59,8 +59,10 @@ namespace dotnet_case.TEST
         public void Delete_ShouldCallService()
         {
             mockService.Setup(x => x.DeleteTrack(new TrackModel() { }));
+            mockService.Setup(x => x.GetTrack(1)).Returns(new TrackModel() { });
 
-            _sut.Delete(new TrackDto() { });
+            //_sut.Delete(new TrackDto() { });
+            _sut.Delete(1);
 
             mockService.Verify(x =>
                 x.DeleteTrack(It.IsAny<TrackModel>()), Times.Once);

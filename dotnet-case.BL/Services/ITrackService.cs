@@ -8,6 +8,7 @@ namespace dotnet_case.BL.Services
     public interface ITrackService
     {
         public List<TrackModel> FindTracksByAlbumId(long albumId);
+        public TrackModel GetTrack(long trackId);
         public void CreateTrack(TrackModel track);
         public void UpdateTrack(TrackModel track);
         public void DeleteTrack(TrackModel track);

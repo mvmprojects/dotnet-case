@@ -20,6 +20,11 @@ namespace dotnet_case.BL.Services
             return _repo.FindTracksByAlbumId(albumId);
         }
 
+        public TrackModel GetTrack(long trackId)
+        {
+            return _repo.GetTrack(trackId);
+        }
+
         public void CreateTrack(TrackModel track)
         {
             // method is also void in tutorial

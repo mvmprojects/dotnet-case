@@ -95,6 +95,11 @@ namespace dotnet_case.DATA.Repositories
             return _context.Tracks.Where(t => t.AlbumId == albumId).ToList();
         }
 
+        public TrackModel GetTrack(long trackId)
+        {
+            return _context.Tracks.Find(trackId);
+        }
+
         // method is also void in tutorial
         public void CreateTrack(TrackModel track)
         {

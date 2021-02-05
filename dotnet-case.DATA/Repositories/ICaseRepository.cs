@@ -24,6 +24,7 @@ namespace dotnet_case.DATA.Repositories
 
         // Tracks
 
+        TrackModel GetTrack(long trackId);
         void CreateTrack(TrackModel track);
         List<TrackModel> FindTracksByAlbumId(long albumId);
         void DeleteTrack(TrackModel track);
