@@ -25,9 +25,21 @@ namespace dotnet_case.API
 
         public IConfiguration Configuration { get; }
 
+        readonly string SpecificOrigins = "_allowSpecificOrigins";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy(name: SpecificOrigins,
+                  policyBuilder =>
+                  {
+                      // testing with separate angular project
+                      policyBuilder.WithOrigins("http://localhost:4200");
+                  });
+            });
+
             services.AddControllers(config =>
             {
                 // if the following is 'false' (it is by default) then the api will return a default 
@@ -79,9 +91,11 @@ namespace dotnet_case.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(SpecificOrigins);
 
             app.UseAuthorization();
 

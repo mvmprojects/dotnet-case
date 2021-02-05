@@ -37,7 +37,7 @@ namespace dotnet_case.API.Controllers
             return Ok();
         }
 
-        //[HttpGet("byalbumid/{albumId}", Name = "FindTracksByAlbumId")] // bad naming choice
+        //[HttpGet("byalbumid/{albumId}", Name = "FindTracksByAlbumId")] // bad route name
         [HttpGet(Name = "FindTracksByAlbumId")]
         public ActionResult<IEnumerable<TrackDto>> FindTracksByAlbumId(long albumId)
         {
