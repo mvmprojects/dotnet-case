@@ -95,11 +95,13 @@ namespace dotnet_case.API.Controllers
             return NoContent(); // 204
         }
 
-        [HttpDelete("/{trackId}")]
-        public ActionResult<TrackDto> Delete(long trackId) //(TrackDto trackDto)
+        [HttpDelete("{trackId}")]
+        public ActionResult<TrackDto> Delete([FromRoute] long trackId) //(TrackDto trackDto)
         {
+            Console.WriteLine("trackId is " + trackId);            
             //TrackModel trackModel = _mapper.Map<TrackModel>(trackDto);
             var trackModel = _service.GetTrack(trackId);
+            Console.WriteLine("trackModel is " + trackModel.Name);
 
             if (trackModel != null)
             {

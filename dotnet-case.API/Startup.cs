@@ -36,7 +36,8 @@ namespace dotnet_case.API
                   policyBuilder =>
                   {
                       // testing with separate angular project
-                      policyBuilder.WithOrigins("http://localhost:4200");
+                      policyBuilder.WithOrigins("http://localhost:4200")
+                      .AllowAnyMethod();
                   });
             });
 
