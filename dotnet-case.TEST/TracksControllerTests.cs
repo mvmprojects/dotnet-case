@@ -46,7 +46,7 @@ namespace dotnet_case.TEST
         {
             mockService.Setup(x => x.CreateTrack(new TrackModel() { }));
 
-            _sut.Create(new TrackDto() { });
+            _sut.Create(new TrackDto() { }, 1);
 
             //Mock.Get(mockService).Verify(x => 
             //    x.CreateTrack(It.IsAny<TrackModel>()), Times.Once);
@@ -73,7 +73,7 @@ namespace dotnet_case.TEST
         {
             mockService.Setup(x => x.UpdateTrack(new TrackModel() { }));
 
-            _sut.Update(new TrackDto() { });
+            _sut.Update(new TrackDto() { }, 1);
 
             mockService.Verify(x =>
                 x.UpdateTrack(It.IsAny<TrackModel>()), Times.Once);

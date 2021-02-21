@@ -47,18 +47,20 @@ namespace dotnet_case.API.Controllers
 
         [HttpPost]
         // consider creating a slimmed down TrackForCreationDto object
-        // consider changing this method to CreateTrackForAlbum, requiring an albumId
-        public ActionResult<TrackDto> Create(TrackDto trackDto)
+        public ActionResult<TrackDto> Create(TrackDto trackDto, [FromRoute] long albumId)
         {
             // note: param null check is unnecessary in modern ASP.NET 
             // as [ApiController] handles it, returning 400 Bad Request by itself
 
             TrackModel trackModel = _mapper.Map<TrackModel>(trackDto);
 
+            trackModel.AlbumId = albumId;
+
             _service.CreateTrack(trackModel);
             _service.Save();
             var trackReturned = _mapper.Map<TrackDto>(trackModel);
-            return CreatedAtRoute("FindTracksByAlbumId", trackReturned);
+            return CreatedAtAction("Create", trackReturned); 
+            // CreatedAtRoute("FindTracksByAlbumId", trackReturned); // no
 
             //// note: Kevin Dockx uses a void method for creation, repo.AddAuthor
             //// followed by a repo.Save() right in the controller.
@@ -84,10 +86,12 @@ namespace dotnet_case.API.Controllers
         }
 
         // patch might be a better option for tracks
-        [HttpPut]
-        public ActionResult<TrackDto> Update(TrackDto trackDto)
+        [HttpPut("{trackId}")]
+        public ActionResult<TrackDto> Update(TrackDto trackDto, [FromRoute] long albumId)
         {
             TrackModel trackModel = _mapper.Map<TrackModel>(trackDto);
+
+            trackModel.AlbumId = albumId;
 
             _service.UpdateTrack(trackModel);
             _service.Save();
