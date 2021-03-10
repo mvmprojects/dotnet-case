@@ -34,7 +34,7 @@ namespace dotnet_case.DATA.Repositories
 
         public ArtistModel GetArtist(long artistId)
         {
-            return _context.Artists.FirstOrDefault(a => a.ArtistId == artistId);
+            return _context.Artists.Find(artistId);//FirstOrDefault(a => a.ArtistId == artistId);
         }
 
         public ArtistModel FindArtistByName(string artistName)
