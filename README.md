@@ -6,10 +6,22 @@ The project is themed around a music store and so the database entities are Arti
 
 EF Core and Automapper will be used.
 
+A "User Story" is the smallest unit of work in the agile framework, and is intended to represent an end goal from the point of view of a user. The following user stories can be briefly laid out but obviously cannot be tested without running both the backend and frontend simultaneously:
+-As a user, I want a search bar so that I can look up music artists by name.
+-As a user, I want to see an overview of albums belonging to the artist so that I can choose an album.
+-As a user, I want to see an overview of tracks after choosing an album so that I can inspect these tracks.
+-As a user, I want to have an "add" functionality so that I can add additional tracks to the album.
+-As a user, I want to have an "edit" functionality so that I can modify an existing track.
+-As a user, I want to have a "delete" functionality so that I can remove an unneeded track.
+
 ## Projects within Solution
 
 Projects within the dotnet-case solution are API (default Web App template), BL, DOMAIN and DATA for more separation (empty class library templates) and finally TEST (NUnit template).
 
 ## Note on Architecture
 
-The idea to add (several) layers between Entity Framework and the controller layer appears to be losing popularity, especially among users of EF Core. Extra layers are still present in this demo, however.
+Although it is unlikely that EF Core will ever be switched out for something else, this demo still has a repository layer which is supposed to make a potential switch easier to perform. The layers are as follows:
+-controller layer (TracksController.cs etc. in dotnet-case.API)
+-business logic layer (TrackService.cs etc. in dotnet-case.BL)
+-repository layer (CaseRepository.cs in dotnet-case.DATA)
+-case context (CaseContext.cs in dotnet-case.DATA)
